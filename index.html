@@ -1,85 +1,148 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<meta name="theme-color" content="#070817" />
-<title>NecroToon — Mobile Manga UI</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070817">
+<title>NecroToon — Baca Komik Favoritmu</title>
 <style>
-:root{--bg:#050611;--surface:#0b0d20;--surface2:#10132c;--text:#f7f6ff;--muted:#a8a7c7;--line:#3035b7;--purple:#9a2cff;--blue:#1da7ff;--pink:#f02cff;--cyan:#16d8ff;--shadow:0 12px 40px rgba(50,30,255,.22)}
-body.light{--bg:#f4f7ff;--surface:#fff;--surface2:#f8f9ff;--text:#121534;--muted:#5f6383;--line:#c9d2ff;--shadow:0 14px 38px rgba(74,75,180,.16)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% -10%,rgba(76,55,255,.28),transparent 35%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:-30%;pointer-events:none;background:conic-gradient(from 90deg,transparent,rgba(107,36,255,.09),transparent,rgba(0,187,255,.07),transparent);filter:blur(70px);animation:aurora 14s linear infinite;z-index:-1}@keyframes aurora{to{transform:rotate(360deg)}}
-.app{width:min(100%,560px);min-height:100vh;margin:auto;padding:env(safe-area-inset-top) 14px calc(106px + env(safe-area-inset-bottom));position:relative}
-.top{display:flex;align-items:center;gap:10px;padding:13px 2px 10px;position:sticky;top:0;z-index:20;background:linear-gradient(var(--bg) 65%,transparent)}
-.logo{font-weight:950;font-style:italic;letter-spacing:-2px;font-size:30px;line-height:1;background:linear-gradient(105deg,#29d7ff,#8667ff 42%,#ff38e9);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 18px rgba(85,60,255,.5);flex:1}
-.actions{display:flex;gap:8px}.icon-btn{width:42px;height:42px;border:1px solid rgba(90,87,255,.7);border-radius:15px;background:rgba(15,18,48,.72);color:var(--text);display:grid;place-items:center;cursor:pointer;box-shadow:inset 0 0 18px rgba(50,80,255,.08);transition:.25s}.light .icon-btn{background:#fff}.icon-btn:hover{transform:translateY(-2px);box-shadow:0 0 24px rgba(75,80,255,.28)}
-.search{height:52px;border:1px solid rgba(94,62,255,.9);background:linear-gradient(100deg,rgba(10,11,32,.95),rgba(11,16,46,.85));border-radius:17px;display:flex;align-items:center;gap:10px;padding:0 16px;margin:4px 0 14px;box-shadow:0 0 26px rgba(38,67,255,.08)}body.light .search{background:#fff}.search input{border:0;outline:0;background:none;color:var(--text);font-size:15px;width:100%}.search input::placeholder{color:var(--muted)}
-.page{display:none;animation:pageIn .35s ease both}.page.active{display:block}@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.hero{border:1px solid #363bff;border-radius:19px;overflow:hidden;min-height:260px;background:#08091c url('assets/hero.jpg') center/cover no-repeat;position:relative;box-shadow:0 0 35px rgba(49,37,255,.22)}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,4,17,.78) 0%,rgba(3,4,17,.2) 52%,rgba(3,4,17,.04));pointer-events:none}.hero-copy{position:relative;z-index:1;padding:24px 20px;width:68%;min-height:260px;display:flex;flex-direction:column;justify-content:center}.eyebrow{display:inline-flex;width:max-content;padding:7px 11px;border:1px solid #6c38ff;border-radius:999px;background:rgba(65,35,180,.25);font-size:12px;margin-bottom:12px}.hero h1{margin:0 0 8px;font-size:30px;line-height:.95;font-style:italic;background:linear-gradient(100deg,#fff,#7deaff 55%,#ff6cff);-webkit-background-clip:text;color:transparent}.hero p{font-size:12px;color:#e9e8ff;line-height:1.45;margin:0 0 16px}.cta{align-self:flex-start;border:0;color:white;font-weight:800;border-radius:999px;padding:13px 17px;background:linear-gradient(100deg,#c522ff,#6a4dff,#0bbaff);box-shadow:0 0 24px rgba(145,45,255,.45);cursor:pointer}.dots{position:absolute;z-index:2;bottom:9px;left:50%;transform:translateX(-50%);display:flex;gap:7px}.dots i{width:22px;height:5px;border-radius:10px;background:#403c7d}.dots i:first-child{background:#fff;box-shadow:0 0 12px #fff}
-.feature-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:13px 0 21px}.feature{min-height:86px;padding:12px 8px;border:1px solid #2f35ba;border-radius:15px;background:linear-gradient(145deg,rgba(13,15,42,.95),rgba(8,9,27,.75));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}body.light .feature{background:#fff}.feature b{font-size:11px}.feature span{font-size:27px;margin-bottom:5px;filter:drop-shadow(0 0 8px #673cff)}
-.section{margin:21px 0}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.section-title{display:flex;align-items:center;gap:9px;font-weight:900;font-size:20px}.section-title .spark{color:#4bdcff;text-shadow:0 0 12px #4bdcff}.see{font-size:12px;color:#69a9ff;cursor:pointer}.cards{display:flex;gap:10px;overflow:auto;padding-bottom:5px;scroll-snap-type:x mandatory}.cards::-webkit-scrollbar{display:none}.comic{min-width:calc(50% - 5px);scroll-snap-align:start;border:1px solid #3638c7;border-radius:14px;overflow:hidden;background:linear-gradient(145deg,#0d0f2b,#080919);box-shadow:var(--shadow)}body.light .comic{background:#fff}.comic-img{height:155px;background-size:cover;background-position:center;position:relative}.rank{position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#7546ff,#00b8ff);border-radius:10px;padding:6px 9px;font-weight:900}.comic-body{padding:9px}.comic h3{font-size:14px;margin:0 0 7px}.tags{display:flex;gap:5px;flex-wrap:wrap}.tag{font-size:10px;padding:5px 8px;border-radius:999px;background:#17165b;border:1px solid #453cff;color:#d8d6ff}.meta{display:flex;justify-content:space-between;color:#aaa9cc;font-size:11px;margin-top:8px}.new .comic-img{height:105px}.new .comic{min-width:48%}
-.genre-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.genre{height:105px;border:1px solid #4434d5;border-radius:15px;overflow:hidden;position:relative;background-size:cover;background-position:center}.genre:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 20%,rgba(4,5,18,.9))}.genre b{position:absolute;z-index:2;left:12px;bottom:10px;font-size:15px}.genre span{position:absolute;z-index:2;right:10px;bottom:9px;font-size:22px}
-.list{display:grid;gap:10px}.row{display:flex;gap:10px;align-items:center;padding:11px;border:1px solid #3438ba;border-radius:15px;background:rgba(10,12,34,.8)}body.light .row{background:#fff}.thumb{width:72px;height:72px;border-radius:11px;background-size:cover;background-position:center;flex:none}.row-main{min-width:0;flex:1}.row h3{margin:0 0 5px;font-size:14px}.sub{font-size:11px;color:var(--muted)}.progress{height:6px;border-radius:9px;background:#222659;margin-top:8px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,#ff28e9,#1bbaff);border-radius:inherit}.row-right{color:#8ca9ff;font-size:12px;text-align:right}.delete{border:1px solid #653bff;background:transparent;color:#d7cfff;padding:9px 12px;border-radius:999px;cursor:pointer}
-.profile-cover{border:1px solid #3e43d8;border-radius:18px;overflow:hidden;background:url('assets/hero.jpg') center/cover;position:relative}.profile-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,6,19,.9),rgba(5,6,19,.18))}.profile-content{position:relative;z-index:1;padding:20px}.avatar{width:82px;height:82px;border-radius:50%;border:3px solid #7a54ff;background:url('assets/solo.jpg') center/cover;box-shadow:0 0 22px #633bff}.profile-name{font-size:25px;font-weight:900;margin:12px 0 2px}.handle{color:#b9b6dc;font-size:12px}.bio{font-size:12px;color:#eee;margin:10px 0}.premium{display:inline-flex;padding:7px 11px;border-radius:999px;background:linear-gradient(100deg,#b82cff,#3e6dff);font-size:11px;font-weight:800}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;border:1px solid #3738ba;border-radius:15px;background:var(--surface);padding:13px;margin-top:10px}.stat{text-align:center}.stat b{display:block;font-size:17px}.stat span{font-size:10px;color:var(--muted)}.settings{margin-top:11px;border:1px solid #3438ba;border-radius:15px;overflow:hidden;background:var(--surface)}.setting{display:flex;align-items:center;gap:11px;padding:14px;border-bottom:1px solid rgba(75,75,160,.28);font-size:13px}.setting:last-child{border-bottom:0}.setting small{margin-left:auto;color:var(--muted)}.follow{margin-top:12px;border:1px solid #6a39ff;border-radius:17px;padding:14px;background:linear-gradient(135deg,rgba(94,34,255,.22),rgba(0,174,255,.12))}.follow h2{margin:0 0 5px;font-size:24px;font-style:italic}.follow p{font-size:11px;color:var(--muted);margin:0 0 10px}.social{display:grid;gap:8px}.social a{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid #3542c7;border-radius:13px;color:var(--text);text-decoration:none;background:rgba(6,8,28,.45)}.social strong{display:flex;align-items:center;gap:8px}.follow-btn{padding:7px 12px;border-radius:999px;background:linear-gradient(90deg,#8a2dff,#008cff);color:#fff;font-size:11px;font-weight:800}
-.bottom-nav{position:fixed;z-index:50;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(calc(100% - 24px),532px);height:76px;border:1px solid rgba(80,67,255,.75);border-radius:23px;background:rgba(8,9,26,.9);backdrop-filter:blur(18px);box-shadow:0 18px 45px rgba(0,0,0,.4),0 0 25px rgba(55,43,255,.18);display:grid;grid-template-columns:repeat(5,1fr);align-items:center;padding:0 8px}.light .bottom-nav{background:rgba(255,255,255,.92)}.nav-item{height:100%;position:relative;display:flex;align-items:center;justify-content:center;color:#aaa8cf;cursor:pointer;z-index:2}.nav-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;transition:transform .45s cubic-bezier(.2,1.55,.3,1),background .35s,box-shadow .35s,color .25s}.nav-label{position:absolute;bottom:8px;font-size:10px;font-weight:800;opacity:0;transform:translateY(8px);transition:.25s;white-space:nowrap}.nav-item.active .nav-icon{transform:translateY(-17px);background:linear-gradient(135deg,#e855ff,#7650ff 48%,#00bfff);color:#fff;box-shadow:0 0 25px rgba(123,58,255,.8);border:3px solid rgba(255,255,255,.7)}.nav-item.active .nav-label{opacity:1;transform:translateY(0);color:var(--text)}.nav-item.active:after{content:"";position:absolute;bottom:4px;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 12px #fff}.nav-item:hover .nav-icon{transform:translateY(-3px)}.nav-item.active:hover .nav-icon{transform:translateY(-17px)}
-.toast{position:fixed;left:50%;bottom:102px;transform:translate(-50%,15px);opacity:0;z-index:70;padding:10px 14px;border-radius:999px;background:#16183d;color:#fff;border:1px solid #6554ff;transition:.25s;font-size:12px}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(min-width:700px){body{padding:20px 0}.app{border:1px solid rgba(75,70,220,.45);border-radius:34px;min-height:calc(100vh - 40px);box-shadow:0 30px 100px rgba(0,0,0,.45);padding-left:18px;padding-right:18px}.bottom-nav{bottom:28px}.hero{min-height:310px}.hero-copy{min-height:310px}.feature-row{gap:10px}.comic{min-width:190px}}
+:root{
+ --bg:#050611; --panel:#0b0d22; --panel2:#0e102b; --text:#f5f4ff; --muted:#aaa9c7;
+ --line:#4332d6; --cyan:#22c9ff; --blue:#426cff; --violet:#9b2cff; --pink:#ec2cff;
+ --shadow:0 0 28px rgba(94,45,255,.24);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 50% -10%,#191047 0,#070817 35%,#04050d 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+button,a{font:inherit;color:inherit} button{border:0;background:none}
+.app{width:min(100%,760px);margin:auto;padding:16px 14px 112px}
+.topbar{display:flex;align-items:center;gap:10px;height:66px}
+.brand{width:300px;max-width:calc(100% - 158px);height:54px;object-fit:contain;object-position:left center;filter:drop-shadow(0 0 12px rgba(72,78,255,.45))}
+.top-actions{margin-left:auto;display:flex;gap:8px}
+.icon-btn{width:54px;height:54px;border:1px solid #3e35bd;border-radius:18px;background:linear-gradient(180deg,#10112b,#08091b);display:grid;place-items:center;box-shadow:inset 0 0 16px rgba(70,50,255,.08);cursor:pointer}
+.icon-btn svg{width:23px;height:23px;stroke:#eee;stroke-width:1.7;fill:none}
+.search{height:74px;border:1px solid #4e37e9;border-radius:25px;background:#0a0c20;display:flex;align-items:center;padding:0 22px;gap:15px;box-shadow:var(--shadow);margin:8px 0 18px}
+.search svg{width:28px;height:28px;stroke:#eee;fill:none;stroke-width:1.8}.search input{background:none;border:0;outline:0;color:#eee;width:100%;font-size:20px}.search input::placeholder{color:#aaa9c5}
+.hero{position:relative;min-height:450px;border:1px solid #4435e4;border-radius:26px;overflow:hidden;background:radial-gradient(circle at 78% 35%,rgba(43,64,255,.65),transparent 38%),linear-gradient(120deg,#08091b,#08091a 55%,#15104b);box-shadow:var(--shadow)}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,5,13,.96) 0%,rgba(4,5,13,.83) 45%,rgba(4,5,13,.05) 100%)}
+.hero-art{position:absolute;right:-8%;top:0;width:70%;height:100%;object-fit:cover;opacity:.9;mix-blend-mode:screen;filter:saturate(1.45) contrast(1.1)}
+.hero-content{position:relative;z-index:2;padding:70px 36px 80px;max-width:440px}
+.welcome{display:inline-flex;padding:10px 17px;border:1px solid #7132ff;border-radius:24px;background:rgba(18,12,57,.75);font-size:17px}
+.hero h1{font-size:49px;line-height:1;margin:24px 0 18px;font-weight:900;font-style:italic;background:linear-gradient(90deg,#fff,#9eeaff 42%,#d84dff);-webkit-background-clip:text;color:transparent}
+.hero p{font-size:19px;line-height:1.45;color:#dddcef;margin:0 0 28px}
+.primary{display:inline-flex;align-items:center;gap:12px;border-radius:28px;padding:17px 25px;background:linear-gradient(90deg,#bd1cff,#8d2cff,#00bfff);font-weight:800;font-size:18px;box-shadow:0 0 25px rgba(179,29,255,.45);cursor:pointer}
+.dots{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:3}.dot{width:38px;height:8px;border-radius:10px;background:#4034a6}.dot.active{background:#fff;box-shadow:0 0 12px #fff}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 28px}
+.feature{min-height:150px;border:1px solid #4332d6;border-radius:22px;background:linear-gradient(180deg,#0d0e29,#08091b);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:12px;box-shadow:inset 0 0 18px rgba(76,51,255,.06)}
+.feature-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#7424ff,#087eff);box-shadow:0 0 18px rgba(76,51,255,.35)} .feature-icon svg{width:27px;height:27px;stroke:white;fill:none;stroke-width:1.8}
+.feature b{font-size:15px;line-height:1.15}
+.section{margin:26px 0}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.section-title{display:flex;align-items:center;gap:10px;font-size:27px;font-weight:900}.spark{font-size:30px;color:#28d7ff;text-shadow:0 0 18px #00d8ff}.see{color:#65a7ff;font-size:16px;text-decoration:none}
+.cards{display:grid;grid-auto-flow:column;grid-auto-columns:calc(50% - 6px);overflow-x:auto;gap:12px;padding-bottom:5px;scrollbar-width:none}.cards::-webkit-scrollbar{display:none}
+.card{min-height:310px;border:1px solid #4432d6;border-radius:18px;overflow:hidden;background:#0b0d22;position:relative}.rank{position:absolute;top:12px;left:12px;width:43px;height:50px;border-radius:15px;background:linear-gradient(135deg,#6250ff,#00a8ff);display:grid;place-items:center;font-weight:900;font-size:22px;z-index:2}
+.cover{height:220px;background-image:linear-gradient(180deg,transparent 45%,#0b0d22 100%),url('assets/solo.jpg');background-size:cover;background-position:center;filter:saturate(1.5)}
+.card-body{padding:10px 13px}.title{font-weight:800;font-size:16px;margin-bottom:8px}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{padding:5px 10px;border-radius:12px;background:#242069;color:#d7d7ff;font-size:12px}.stats{display:flex;justify-content:space-between;margin-top:12px;color:#aaa9c7;font-size:13px}.star{color:#ffe12c}
+.latest .card{min-height:155px}.latest .cover{height:92px}.latest .card-body{padding:8px 11px}
+.genres{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.genre{height:120px;border:1px solid #4432d6;border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(180deg,#111230,#090a1c)}.genre-icon{font-size:30px}.genre span{font-weight:700}
+.follow{border:1px solid #4934df;border-radius:24px;background:radial-gradient(circle at 80% 20%,rgba(105,39,255,.45),transparent 40%),#0a0c20;padding:24px;margin-top:28px;box-shadow:var(--shadow)}.follow h2{font-size:29px;margin:0 0 7px}.follow p{color:#bbb9d3;margin:0 0 18px}.socials{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.social{border:1px solid #4432d6;border-radius:18px;padding:15px 10px;text-decoration:none;text-align:center;background:#0d0f28;transition:.2s}.social:active{transform:scale(.97)}.social-icon{height:44px;display:grid;place-items:center;margin-bottom:8px}.social-icon svg{width:36px;height:36px}.wa{color:#25D366}.tg{color:#229ED9}.tt{color:#fff}.social b{display:block;font-size:14px}.social small{color:#9694b5;font-size:11px}
+.bottom{position:fixed;z-index:50;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(calc(100% - 28px),732px);height:102px;border:1px solid #4534dd;border-radius:30px;background:rgba(8,9,28,.94);backdrop-filter:blur(18px);display:grid;grid-template-columns:repeat(5,1fr);box-shadow:0 0 35px rgba(38,22,143,.35);padding:6px}
+.nav-item{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:#aaa9c7;font-size:13px;cursor:pointer;border-radius:25px;transition:transform .28s cubic-bezier(.2,.9,.25,1.35),color .2s}
+.nav-item svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.7;transition:transform .28s}.nav-item.active{color:#fff;font-weight:800}.nav-item.active svg{transform:translateY(-6px)}.nav-item.active:before{content:"";position:absolute;top:0;width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,#b72cff,#238cff);border:5px solid #d8d4ff;box-shadow:0 0 28px rgba(106,44,255,.9);z-index:-1}.nav-item.active:after{content:"";position:absolute;bottom:2px;width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 10px #fff}.nav-item.active span{transform:translateY(5px)}
+.page{display:none;animation:fade .3s ease}.page.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.profile{border:1px solid #4432d6;border-radius:25px;padding:30px;background:#0b0d22;text-align:center}.avatar{width:92px;height:92px;margin:auto;border-radius:50%;background:linear-gradient(135deg,#bd2aff,#147eff);display:grid;place-items:center;box-shadow:0 0 28px #6330ff}.avatar img{width:80px;height:80px;object-fit:contain}.profile h2{margin:18px 0 5px}.profile p{color:#aaa9c7}
+.light{--bg:#f4f6ff;--panel:#fff;--panel2:#fff;--text:#111326;--muted:#62657b;--line:#7b62ff}.light body{background:linear-gradient(180deg,#f8f9ff,#e9ecff);color:var(--text)}body.light{background:linear-gradient(180deg,#f8f9ff,#e9ecff);color:#111326}.light .icon-btn,.light .search,.light .hero,.light .feature,.light .card,.light .genre,.light .follow,.light .profile{background:#fff}.light .search input{color:#111}.light .hero:after{background:linear-gradient(90deg,rgba(255,255,255,.94),rgba(255,255,255,.62),rgba(255,255,255,.08))}.light .bottom{background:rgba(255,255,255,.93)}.light .nav-item{color:#5e6178}.light .nav-item.active{color:#fff}.light .hero p{color:#4c4f67}
+@media(max-width:520px){.app{padding:8px 12px 120px}.topbar{height:62px}.brand{height:50px;max-width:285px}.top-actions{gap:6px}.icon-btn{width:50px;height:50px;border-radius:17px}.top-actions .icon-btn:nth-child(2){display:none}.search{height:70px;border-radius:23px;padding:0 18px}.search input{font-size:18px}.hero{min-height:455px}.hero-content{padding:70px 35px 75px}.hero h1{font-size:46px}.hero p{font-size:18px}.hero-art{width:78%;right:-19%;opacity:.78}.features{gap:10px}.feature{min-height:155px}.feature b{font-size:14px}.section-title{font-size:25px}.cards{grid-auto-columns:calc(50% - 5px)}.card{min-height:320px}.cover{height:225px}.genres{grid-template-columns:repeat(2,1fr)}.socials{grid-template-columns:repeat(3,1fr)}.bottom{height:102px}.nav-item{font-size:12px}}
+@media(min-width:521px){.app{padding-bottom:120px}}
 </style>
 </head>
 <body>
-<div class="app">
-  <header class="top">
-    <div class="logo">NecroToon</div>
-    <div class="actions">
-      <button class="icon-btn" id="theme" aria-label="Ganti tema">☾</button>
-      <button class="icon-btn" aria-label="Notifikasi">♧</button>
-      <button class="icon-btn" aria-label="Cari" onclick="document.querySelector('.search input').focus()">⌕</button>
+<main class="app">
+  <header class="topbar">
+    <img class="brand" src="assets/necrotoon-logo.png" alt="NecroToon">
+    <div class="top-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Mode"><svg viewBox="0 0 24 24"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"/></svg></button>
+      <button class="icon-btn" aria-label="Notifikasi"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
+      <button class="icon-btn" aria-label="Cari"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg></button>
     </div>
   </header>
-  <div class="search"><span style="font-size:24px">⌕</span><input placeholder="Cari judul komik, genre, atau penulis..." /></div>
+  <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4.5 4.5"/></svg><input placeholder="Cari judul komik, genre, atau penulis..." id="searchInput"></div>
 
-  <main id="home" class="page active">
-    <section class="hero"><div class="hero-copy"><span class="eyebrow">✦ Selamat Datang di</span><h1>NecroToon</h1><p>Baca ribuan komik favoritmu, kapan saja, di mana saja.</p><button class="cta" onclick="go('bookmark')">▣ Mulai Membaca →</button></div><div class="dots"><i></i><i></i><i></i></div></section>
-    <div class="feature-row"><div class="feature"><span>▣</span><b>Kualitas HD</b></div><div class="feature"><span>♢</span><b>Update Cepat</b></div><div class="feature"><span>▤</span><b>Multi Device</b></div><div class="feature"><span>♨</span><b>Genre Populer</b></div></div>
-    <section class="section"><div class="section-head"><div class="section-title"><span class="spark">✦</span>Komik Populer</div><span class="see">Lihat Semua →</span></div><div class="cards" id="popular"></div></section>
-    <section class="section"><div class="section-head"><div class="section-title"><span class="spark">♨</span>Komik Terbaru</div><span class="see">Lihat Semua →</span></div><div class="cards new" id="new"></div></section>
-    <section class="section"><div class="section-head"><div class="section-title"><span class="spark">▦</span>Genre Pilihan</div><span class="see">Lihat Semua →</span></div><div class="genre-grid" id="genres"></div></section>
-  </main>
+  <section class="page active" id="home">
+    <div class="hero">
+      <img src="assets/solo.jpg" class="hero-art" alt="">
+      <div class="hero-content">
+        <div class="welcome">✦ Selamat Datang di</div>
+        <h1>NecroToon</h1>
+        <p>Baca ribuan komik favoritmu,<br>kapan saja, di mana saja.</p>
+        <button class="primary" onclick="document.querySelector('#popular').scrollIntoView({behavior:'smooth'})">▣ Mulai Membaca&nbsp; →</button>
+      </div>
+      <div class="dots"><i class="dot active"></i><i class="dot"></i><i class="dot"></i></div>
+    </div>
+    <div class="features">
+      <div class="feature"><div class="feature-icon">HD</div><b>Kualitas HD</b></div>
+      <div class="feature"><div class="feature-icon">✓</div><b>Update Cepat</b></div>
+      <div class="feature"><div class="feature-icon">▤</div><b>Multi Device</b></div>
+      <div class="feature"><div class="feature-icon">♨</div><b>Genre Populer</b></div>
+    </div>
+    <div class="section" id="popular">
+      <div class="section-head"><div class="section-title"><span class="spark">✦</span> Komik Populer</div><a class="see" href="#">Lihat Semua →</a></div>
+      <div class="cards" id="popularCards"></div>
+    </div>
+    <div class="section">
+      <div class="section-head"><div class="section-title"><span class="spark">♨</span> Komik Terbaru</div><a class="see" href="#">Lihat Semua →</a></div>
+      <div class="cards latest" id="latestCards"></div>
+    </div>
+    <div class="section">
+      <div class="section-head"><div class="section-title"><span class="spark">⌘</span> Genre Pilihan</div><a class="see" href="#">Lihat Semua →</a></div>
+      <div class="genres">
+        <div class="genre"><div class="genre-icon">⚡</div><span>Action</span></div><div class="genre"><div class="genre-icon">♟</div><span>Adventure</span></div>
+        <div class="genre"><div class="genre-icon">★</div><span>Fantasy</span></div><div class="genre"><div class="genre-icon">♥</div><span>Romance</span></div>
+      </div>
+    </div>
+    <div class="follow">
+      <h2>Follow Kami! ✦</h2><p>Dapatkan update komik terbaru, info menarik, dan notifikasi chapter baru.</p>
+      <div class="socials">
+        <a class="social" href="https://whatsapp.com/channel/0029VbDgk5eFMqrXmvdyij1C" target="_blank"><div class="social-icon wa"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.2 11.2 0 0 0 12.55.2C6.4.2 1.4 5.2 1.4 11.35c0 1.95.5 3.85 1.45 5.52L1.2 22.8l6.08-1.6a11.1 11.1 0 0 0 5.27 1.34h.01c6.15 0 11.15-5 11.15-11.15 0-2.98-1.16-5.78-3.21-7.89ZM12.56 20.3h-.01a9.02 9.02 0 0 1-4.6-1.26l-.33-.2-3.61.95.96-3.52-.22-.36a9 9 0 1 1 7.81 4.39Zm4.94-6.74c-.27-.14-1.61-.79-1.86-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.35-.8-.71-1.35-1.58-1.51-1.85-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.47.07-.72.34-.25.27-.94.92-.94 2.24s.97 2.6 1.1 2.78c.14.18 1.91 2.92 4.63 4.09.65.28 1.15.45 1.54.58.65.21 1.24.18 1.71.11.52-.08 1.61-.66 1.84-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32Z"/></svg></div><b>WhatsApp</b><small>Channel Resmi</small></a>
+        <a class="social" href="https://t.me/thiskaltzy404" target="_blank"><div class="social-icon tg"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 3.3 2.8 10.6c-.85.33-.84.8-.15 1.02l4.84 1.51 1.86 5.8c.23.65.12.91.8.91.53 0 .76-.24 1.05-.53l2.34-2.28 4.86 3.59c.89.49 1.53.23 1.76-.83l3.18-15.03c.34-1.3-.5-1.89-1.62-1.46ZM8.24 12.75l10.95-6.9c.55-.33 1.05-.15.64.2l-8.9 8.04-.34 3.25-1.35-4.59-1-.3Z"/></svg></div><b>Telegram</b><small>Channel Resmi</small></a>
+        <a class="social" href="https://tiktok.com/@kaltzy404" target="_blank"><div class="social-icon tt"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.7 2c.25 2.17 1.45 3.56 3.55 3.69v3.08c-1.22.12-2.3-.28-3.52-1.02v6.38c0 8.1-8.84 10.63-12.4 4.82-2.29-3.74-.89-10.32 5.1-10.59v3.6c-.46.08-.96.2-1.38.4-1.22.58-1.9 1.67-1.72 3.04.35 2.62 5.16 3.4 6.54.77.25-.48.38-1.03.38-1.59V2h3.45Z"/></svg></div><b>TikTok</b><small>@kaltzy404</small></a>
+      </div>
+    </div>
+  </section>
 
-  <main id="genre" class="page"><section class="section"><div class="section-head"><div class="section-title">▦ Semua Genre</div><span class="see">9 kategori</span></div><div class="genre-grid" id="genrePage"></div></section></main>
+  <section class="page" id="genrePage"><div class="section"><div class="section-title"><span class="spark">⌘</span> Semua Genre</div></div><div class="genres" id="allGenres"></div></section>
+  <section class="page" id="bookmarkPage"><div class="section-title"><span class="spark">♡</span> Bookmark</div><div class="section"><div class="profile"><h2>Belum ada bookmark</h2><p>Komik yang kamu tandai akan muncul di sini.</p></div></div></section>
+  <section class="page" id="historyPage"><div class="section-title"><span class="spark">◷</span> History</div><div class="section"><div class="profile"><h2>Belum ada riwayat</h2><p>Komik yang kamu baca akan muncul di sini.</p></div></div></section>
+  <section class="page" id="profilePage"><div class="profile"><div class="avatar"><img src="assets/necrotoon-logo.png" alt=""></div><h2>NecroToon</h2><p>Tempat membaca komik favoritmu.</p><button class="primary">Edit Profil</button></div><div class="follow"><h2>Ikuti NecroToon</h2><p>Jangan lewatkan update terbaru.</p><div class="socials">
+    <a class="social" href="https://whatsapp.com/channel/0029VbDgk5eFMqrXmvdyij1C" target="_blank"><b class="wa">WhatsApp</b><small>Channel Resmi</small></a>
+    <a class="social" href="https://t.me/thiskaltzy404" target="_blank"><b class="tg">Telegram</b><small>Channel Resmi</small></a>
+    <a class="social" href="https://tiktok.com/@kaltzy404" target="_blank"><b>TikTok</b><small>@kaltzy404</small></a>
+  </div></div></section>
+</main>
 
-  <main id="bookmark" class="page"><section class="section"><div class="section-head"><div><div class="section-title">♡ Bookmark</div><div class="sub">Komik yang kamu simpan</div></div><button class="delete" onclick="toast('Bookmark tetap aman ✦')">Kelola</button></div><div class="list" id="bookmarkList"></div></section></main>
-
-  <main id="history" class="page"><section class="section"><div class="section-head"><div><div class="section-title">◷ History</div><div class="sub">Daftar komik yang pernah kamu baca</div></div><button class="delete" onclick="toast('Riwayat demo tidak dihapus')">Hapus Semua</button></div><div class="list" id="historyList"></div></section></main>
-
-  <main id="profile" class="page"><section class="profile-cover"><div class="profile-content"><div class="avatar"></div><div class="profile-name">Necro ✦</div><div class="handle">@NecroToon</div><div class="bio">“Anime bukan sekadar hiburan, tapi bagian dari hidup.”</div><span class="premium">♛ Anggota Premium</span></div></section><div class="stats"><div class="stat"><b>128</b><span>Bookmark</span></div><div class="stat"><b>46</b><span>History</span></div><div class="stat"><b>12</b><span>Komentar</span></div><div class="stat"><b>87</b><span>Favorit</span></div></div><div class="settings"><div class="setting">⚙️ Pengaturan Akun <small>›</small></div><div class="setting">◐ Tampilan <small id="modeText">Mode Gelap</small></div><div class="setting">♢ Privasi & Keamanan <small>›</small></div><div class="setting">♧ Notifikasi <small>›</small></div><div class="setting">? Bantuan & Dukungan <small>›</small></div><div class="setting">⇥ Keluar <small>›</small></div></div><div class="follow"><h2>YUK FOLLOW KAMI! ✦</h2><p>Jangan sampai ketinggalan update terbaru, informasi menarik, dan konten seru lainnya dari NecroToon.</p><div class="social"><a href="https://whatsapp.com/channel/0029VbDgk5eFMqrXmvdyij1C" target="_blank"><strong>🟢 WhatsApp</strong><span class="follow-btn">Follow</span></a><a href="https://t.me/thiskaltzy404" target="_blank"><strong>🔵 Telegram</strong><span class="follow-btn">Follow</span></a><a href="https://tiktok.com/@kaltzy404" target="_blank"><strong>⚫ TikTok</strong><span class="follow-btn">Follow</span></a></div></div></main>
-</div>
-
-<nav class="bottom-nav" aria-label="Navigasi utama">
-  <div class="nav-item active" data-page="home"><div class="nav-icon">⌂</div><div class="nav-label">Beranda</div></div>
-  <div class="nav-item" data-page="genre"><div class="nav-icon">▦</div><div class="nav-label">Genre</div></div>
-  <div class="nav-item" data-page="bookmark"><div class="nav-icon">♡</div><div class="nav-label">Bookmark</div></div>
-  <div class="nav-item" data-page="history"><div class="nav-icon">◷</div><div class="nav-label">History</div></div>
-  <div class="nav-item" data-page="profile"><div class="nav-icon">♙</div><div class="nav-label">Profil</div></div>
+<nav class="bottom" aria-label="Navigasi">
+  <button class="nav-item active" data-page="home"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg><span>Beranda</span></button>
+  <button class="nav-item" data-page="genrePage"><svg viewBox="0 0 24 24"><path d="M5 4h4v4H5zM15 4h4v4h-4zM5 14h4v4H5zM15 14h4v4h-4z"/></svg><span>Genre</span></button>
+  <button class="nav-item" data-page="bookmarkPage"><svg viewBox="0 0 24 24"><path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-6-4-6 4Z"/></svg><span>Bookmark</span></button>
+  <button class="nav-item" data-page="historyPage"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>History</span></button>
+  <button class="nav-item" data-page="profilePage"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Profil</span></button>
 </nav>
-<div class="toast" id="toast"></div>
 <script>
-const popular=[['Solo Leveling','9.8','1.2M','solo.jpg',['Action','Fantasy']],['One Piece','9.7','2.4M','onepiece.jpg',['Action','Adventure']],['Naruto','9.5','1.8M','naruto.jpg',['Action','Adventure']],['Jujutsu Kaisen','9.4','1.5M','jujutsu.jpg',['Action','Fantasy']]];
-const latest=[['Dandadan','Chapter 167','dandadan.jpg','Action'],['Blue Lock','Chapter 284','bluelock.jpg','Sport'],['Wind Breaker','Chapter 195','windbreaker.jpg','Action'],['Mashle','Chapter 160','mashle.jpg','Fantasy']];
-const genreData=[['Action','action.jpg','⚡'],['Adventure','adventure.jpg','♟'],['Fantasy','fantasy.jpg','★'],['Romance','romance.jpg','♥'],['Comedy','comedy.jpg','●']];
-const history=[['Solo Leveling','Chapter 210 · Awal dari Segalanya','solo.jpg','78%','2 jam yang lalu'],['One Piece','Chapter 1120 · Kejutan di Pulau Egghead','onepiece.jpg','45%','5 jam yang lalu'],['Naruto','Chapter 700 · Perang Dunia Ninja','naruto.jpg','100%','1 hari yang lalu'],['Demon Slayer','Chapter 205 · Pertarungan di Kastil','dandadan.jpg','30%','1 hari yang lalu'],['Jujutsu Kaisen','Chapter 271 · Pertarungan Terakhir','jujutsu.jpg','60%','2 hari yang lalu']];
-function render(){
- document.querySelector('#popular').innerHTML=popular.map((x,i)=>`<article class="comic"><div class="comic-img" style="background-image:url('assets/${x[3]}')"><span class="rank">${i+1}</span></div><div class="comic-body"><h3>${x[0]}</h3><div class="tags">${x[4].map(t=>`<span class="tag">${t}</span>`).join('')}</div><div class="meta"><span>⭐ ${x[1]}</span><span>◉ ${x[2]}</span></div></div></article>`).join('');
- document.querySelector('#new').innerHTML=latest.map(x=>`<article class="comic"><div class="comic-img" style="background-image:url('assets/${x[2]}')"></div><div class="comic-body"><h3>${x[0]}</h3><div class="meta"><span>${x[1]}</span><span class="tag">${x[3]}</span></div></div></article>`).join('');
- const genreHTML=genreData.map(x=>`<div class="genre" style="background-image:url('assets/${x[1]}')"><b>${x[0]}</b><span>${x[2]}</span></div>`).join(''); document.querySelector('#genres').innerHTML=genreHTML;document.querySelector('#genrePage').innerHTML=genreHTML;
- document.querySelector('#bookmarkList').innerHTML=popular.concat([['Demon Slayer','9.3','1.7M','dandadan.jpg',['Action','Fantasy']]]).map((x)=>`<div class="row"><div class="thumb" style="background-image:url('assets/${x[3]}')"></div><div class="row-main"><h3>${x[0]}</h3><div class="sub">Chapter terbaru · Tersimpan</div><div class="tags" style="margin-top:7px">${x[4].map(t=>`<span class="tag">${t}</span>`).join('')}</div></div><div class="row-right">›</div></div>`).join('');
- document.querySelector('#historyList').innerHTML=history.map(x=>`<div class="row"><div class="thumb" style="background-image:url('assets/${x[2]}')"></div><div class="row-main"><h3>${x[0]}</h3><div class="sub">${x[1]}</div><div class="progress"><i style="width:${x[3]}"></i></div></div><div class="row-right">${x[3]}<br><span class="sub">${x[4]}</span></div></div>`).join('');
-}
-function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===page));window.scrollTo({top:0,behavior:'smooth'});}
-document.querySelectorAll('.nav-item').forEach(n=>n.addEventListener('click',()=>go(n.dataset.page)));
-const theme=document.querySelector('#theme');theme.addEventListener('click',()=>{document.body.classList.toggle('light');theme.textContent=document.body.classList.contains('light')?'☀':'☾';document.querySelector('#modeText').textContent=document.body.classList.contains('light')?'Mode Terang':'Mode Gelap';});
-function toast(msg){const t=document.querySelector('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
-render();
+const popular=[
+ ["Solo Leveling","Action","Fantasy","9.8","1.2M"],["One Piece","Action","Adventure","9.7","2.4M"],["Naruto","Action","Adventure","9.5","1.8M"],["Jujutsu Kaisen","Action","Fantasy","9.4","1.5M"]
+];
+const latest=[["Dandadan","Chapter 167","Action"],["Blue Lock","Chapter 284","Sport"],["Wind Breaker","Chapter 195","Action"],["Mashle","Chapter 160","Fantasy"]];
+const makePopular=(x,i)=>`<article class="card"><div class="rank">${i+1}</div><div class="cover"></div><div class="card-body"><div class="title">${x[0]}</div><div class="chips"><span class="chip">${x[1]}</span><span class="chip">${x[2]}</span></div><div class="stats"><span class="star">★ ${x[3]}</span><span>◉ ${x[4]}</span></div></div></article>`;
+const makeLatest=x=>`<article class="card"><div class="cover"></div><div class="card-body"><div class="title">${x[0]}</div><div class="stats"><span>${x[1]}</span><span class="chip">${x[2]}</span></div></div></article>`;
+document.querySelector('#popularCards').innerHTML=popular.map(makePopular).join('');
+document.querySelector('#latestCards').innerHTML=latest.map(makeLatest).join('');
+const genres=["Action","Adventure","Fantasy","Romance","Comedy","Horror","Mystery","Isekai","Slice of Life","Sports","Drama","Sci-Fi"];
+document.querySelector('#allGenres').innerHTML=genres.map((g,i)=>`<div class="genre"><div class="genre-icon">${["⚡","♟","★","♥","☻","☠","◈","♜","✦","◉","◆","✧"][i]}</div><span>${g}</span></div>`).join('');
+document.querySelectorAll('.nav-item').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(btn.dataset.page).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});
+}));
+document.querySelector('#themeBtn').addEventListener('click',()=>document.body.classList.toggle('light'));
+document.querySelector('#searchInput').addEventListener('input',e=>{
+ const q=e.target.value.toLowerCase();document.querySelectorAll('#popularCards .card').forEach((c,i)=>c.style.display=popular[i][0].toLowerCase().includes(q)?'block':'none');
+});
+let slide=0;setInterval(()=>{const ds=document.querySelectorAll('.dot');ds.forEach(d=>d.classList.remove('active'));slide=(slide+1)%3;ds[slide].classList.add('active')},3000);
 </script>
 </body></html>
